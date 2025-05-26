@@ -1,0 +1,30 @@
+{
+  "name": "@taleef/llm-prompt-kit",
+  "version": "0.1.0",
+  "description": "A toolkit for building, managing, and formatting prompts for Large Language Models.",
+  "keywords": [
+    "llm",
+    "prompt",
+    "prompt",
+    "engineering",
+    "ollama",
+    "api",
+    "nlp",
+    "typescript",
+    "toolkit"
+  ],
+  "license": "MIT",
+  "author": "Taleef Tamsal",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "typescript": "^5.8.3"
+  }
+}

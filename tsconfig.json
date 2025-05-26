@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+
+    /* Language and Environment */
+    "target": "ES2020", // Target modern ECMAScript version
+    "lib": ["ES2020", "DOM"], // Include DOM types if you might have browser-relevant utils
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Modules */
+    "module": "CommonJS", // Standard for Node.js libraries
+    "moduleResolution": "node", // How modules get resolved
+    "resolveJsonModule": true, // Allows importing JSON files
+    "esModuleInterop": true, // Enables compatibility with CommonJS modules
+    "allowSyntheticDefaultImports": true, // Allows default imports from modules with no default export
+
+    /* Emit */
+    "declaration": true, // Generate .d.ts declaration files (crucial for TypeScript library users)
+    "declarationMap": true, // Optional: Creates sourcemaps for .d.ts files
+    "sourceMap": true, // Generate .js.map sourcemap files for debugging
+    "outDir": "./dist", // Output directory for compiled JavaScript
+    "removeComments": false, // Keep comments in the output if desired, or set to true
+
+    /* Interop Constraints */
+    "forceConsistentCasingInFileNames": true, // Ensures consistent casing in file names
+
+    /* Type Checking */
+    "strict": true, // Enable all strict type-checking options
+    "noImplicitAny": true, // Raise error on expressions and declarations with an implied 'any' type.
+    "strictNullChecks": true, // Enable strict null checks
+    "strictFunctionTypes": true, // Enable strict checking of function types.
+    "strictPropertyInitialization": true, // Ensure non-undefined class properties are initialized in the constructor.
+    "noImplicitThis": true, // Raise error on 'this' expressions with an implied 'any' type.
+    "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file.
+
+    /* Completeness */
+    "skipLibCheck": true // Skip type checking of declaration files (can speed up compilation)
+  },
+  "include": ["src/**/*"], // Which files TypeScript should compile
+  "exclude": ["node_modules", "dist", "**/*.test.ts"] // Which files to exclude
+}
