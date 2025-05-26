@@ -1,0 +1,55 @@
+name: Node.js CI # Name of your workflow, shown on GitHub Actions tab
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ] # Runs on pushes to the main branch
+  pull_request:
+    branches: [ main ] # Runs on pull requests targeting the main branch
+
+jobs:
+  build_and_test: # ID of the job
+    name: Build and Test # Name of the job, shown on GitHub
+    runs-on: ubuntu-latest # Specifies the type of runner (OS)
+
+    strategy:
+      matrix:
+        node-version: [20.x] # Define Node.js versions to test against (can add more like 18.x, 22.x)
+
+    steps:
+      # 1. Checkout your repository code so the workflow can access it
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js environment
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Enables caching of npm dependencies for faster builds
+
+      # 3. Install dependencies reliably using package-lock.json
+      - name: Install dependencies
+        run: npm ci # 'ci' is generally preferred over 'install' in CI for reproducibility
+
+      # 4. Run linters (ensure it exits with non-zero code on errors)
+      - name: Run linter
+        run: npm run lint # Assumes your lint script errors out on lint issues
+                          # We added --max-warnings 0 to our lint script for this
+
+      # 5. Run tests (which includes compilation if necessary for TypeScript)
+      - name: Run tests
+        run: npm test # This runs 'vitest run'
+
+      # 6. Run tests with coverage
+      - name: Generate coverage report
+        run: npm run coverage
+
+      # 7. (Optional) Upload coverage report as an artifact
+      # This allows you to download and inspect the coverage report from the GitHub Actions run
+      - name: Upload coverage an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-node-${{ matrix.node-version }}
+          path: coverage/ # Path to the coverage directory
+          if-no-files-found: error # Optional: error if coverage directory not found
