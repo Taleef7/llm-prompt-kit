@@ -5,7 +5,7 @@ export interface Message {
 }
 
 export interface PromptData {
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined | null; // More specific than any
 }
 
 export class PromptBuilder {
@@ -17,7 +17,7 @@ export class PromptBuilder {
   }
 
   public setSystemMessage(content: string): this {
-    this.messages = this.messages.filter(msg => msg.role !== 'system');
+    this.messages = this.messages.filter((msg) => msg.role !== 'system');
     this.messages.unshift({ role: 'system', content });
     return this;
   }
@@ -44,7 +44,9 @@ export class PromptBuilder {
    * @param context The context string or an array of context strings.
    */
   public addContextBlock(context: string | string[]): this {
-    const contextContent = Array.isArray(context) ? context.join("\n---\n") : context; // Join array elements
+    const contextContent = Array.isArray(context)
+      ? context.join('\n---\n')
+      : context; // Join array elements
     // Find the index of the last user message to insert context before, or add to end if no user messages yet.
     // For simplicity in MVP, let's just add it as a 'context' role message.
     // More sophisticated placement can be an enhancement.
@@ -55,7 +57,10 @@ export class PromptBuilder {
   private interpolate(content: string, data: PromptData): string {
     let interpolatedContent = content;
     for (const key in data) {
-      interpolatedContent = interpolatedContent.replace(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), String(data[key]));
+      interpolatedContent = interpolatedContent.replace(
+        new RegExp(`{{\\s*${key}\\s*}}`, 'g'),
+        String(data[key])
+      );
     }
     return interpolatedContent;
   }
@@ -64,9 +69,9 @@ export class PromptBuilder {
     let processedMessages = this.messages;
 
     if (data) {
-      processedMessages = processedMessages.map(msg => ({
+      processedMessages = processedMessages.map((msg) => ({
         ...msg,
-        content: this.interpolate(msg.content, data)
+        content: this.interpolate(msg.content, data),
       }));
     }
     return [...processedMessages]; // Return a copy
