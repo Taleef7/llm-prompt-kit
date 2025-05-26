@@ -37,5 +37,5 @@
     "skipLibCheck": true // Skip type checking of declaration files (can speed up compilation)
   },
   "include": ["src/**/*"], // Which files TypeScript should compile
-  "exclude": ["node_modules", "dist", "**/*.test.ts"] // Which files to exclude
+  "exclude": ["node_modules", "dist"] // Which files to exclude
 }
