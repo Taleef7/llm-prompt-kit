@@ -1,7 +1,7 @@
 export interface Message {
-  role: 'system' | 'user' | 'assistant' | 'tool';
+  role: 'system' | 'user' | 'assistant' | 'tool' | 'context'; // Added 'context' role
   content: string;
-  toolId?: string; // Optional toolId for tool messages
+  toolId?: string;
 }
 
 export interface PromptData {
@@ -13,11 +13,10 @@ export class PromptBuilder {
 
   constructor() {
     this.messages = [];
-    console.log("PromptBuilder initialized (TS Version!)");
+    // console.log("PromptBuilder initialized (TS Version!)"); // Let's remove this console.log for cleaner library code
   }
 
   public setSystemMessage(content: string): this {
-    // Remove existing system message if any, or decide on strategy
     this.messages = this.messages.filter(msg => msg.role !== 'system');
     this.messages.unshift({ role: 'system', content });
     return this;
@@ -38,7 +37,21 @@ export class PromptBuilder {
     return this;
   }
 
-  // Basic placeholder interpolation
+  /**
+   * Adds a block of context to the prompt.
+   * This context will be inserted before the next user message or as a dedicated context message.
+   * For now, we'll add it as a message with role 'context'.
+   * @param context The context string or an array of context strings.
+   */
+  public addContextBlock(context: string | string[]): this {
+    const contextContent = Array.isArray(context) ? context.join("\n---\n") : context; // Join array elements
+    // Find the index of the last user message to insert context before, or add to end if no user messages yet.
+    // For simplicity in MVP, let's just add it as a 'context' role message.
+    // More sophisticated placement can be an enhancement.
+    this.messages.push({ role: 'context', content: contextContent });
+    return this;
+  }
+
   private interpolate(content: string, data: PromptData): string {
     let interpolatedContent = content;
     for (const key in data) {
@@ -48,12 +61,14 @@ export class PromptBuilder {
   }
 
   public build(data?: PromptData): Message[] {
+    let processedMessages = this.messages;
+
     if (data) {
-      return this.messages.map(msg => ({
+      processedMessages = processedMessages.map(msg => ({
         ...msg,
         content: this.interpolate(msg.content, data)
       }));
     }
-    return [...this.messages]; // Return a copy
+    return [...processedMessages]; // Return a copy
   }
 }
