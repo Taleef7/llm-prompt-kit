@@ -11,13 +11,26 @@
     "api",
     "nlp",
     "typescript",
-    "toolkit"
+    "toolkit",
+    "ai"
+  ],
+  "files": [
+    "dist",
+    "README.md"
   ],
   "license": "MIT",
   "author": "Taleef Tamsal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taleef7/llm-prompt-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Taleef7/llm-prompt-kit/issues"
+  },
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "homepage": "https://github.com/Taleef7/llm-prompt-kit#readme",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
