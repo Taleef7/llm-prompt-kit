@@ -1,5 +1,7 @@
 # @taleef/llm-prompt-kit
 
+[![Node.js CI](https://github.com/Taleef7/llm-prompt-kit/actions/workflows/node-ci.yml/badge.svg)](https://github.com/Taleef7/llm-prompt-kit/actions/workflows/node-ci.yml)
+
 A flexible and powerful toolkit for building, managing, and formatting prompts for Large Language Models (LLMs) in TypeScript/JavaScript projects.
 
 ## The Problem
