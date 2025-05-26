@@ -37,7 +37,8 @@ describe('PromptBuilder', () => {
     const builder = new PromptBuilder();
     builder.addContextBlock('This is some context.');
     const messages = builder.build();
-    expect(messages).toContainEqual({ // Use toContainEqual for checking an element in an array
+    expect(messages).toContainEqual({
+      // Use toContainEqual for checking an element in an array
       role: 'context',
       content: 'This is some context.',
     });
@@ -47,13 +48,15 @@ describe('PromptBuilder', () => {
     const builder = new PromptBuilder();
     builder.addContextBlock(['First context.', 'Second context.']);
     const messages = builder.build();
-    expect(messages).toContainEqual({ // Use toContainEqual
+    expect(messages).toContainEqual({
+      // Use toContainEqual
       role: 'context',
       content: 'First context.\n---\nSecond context.',
     });
   });
 
-  it('should add an assistant message correctly', () => { // New Test
+  it('should add an assistant message correctly', () => {
+    // New Test
     const builder = new PromptBuilder();
     builder.addAssistantMessage('I am here to help.');
     const expectedMessages: Message[] = [
@@ -62,7 +65,8 @@ describe('PromptBuilder', () => {
     expect(builder.build()).toEqual(expectedMessages);
   });
 
-  it('should add a tool message correctly', () => { // New Test
+  it('should add a tool message correctly', () => {
+    // New Test
     const builder = new PromptBuilder();
     builder.addToolMessage('tool_123', 'Tool output content.');
     const expectedMessages: Message[] = [

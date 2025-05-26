@@ -17,9 +17,7 @@ describe('OllamaFormatter', () => {
 
   it('should return an object with the same messages array that was passed in (single message)', () => {
     const formatter = new OllamaFormatter();
-    const messages: Message[] = [
-      { role: 'user', content: 'Hello, Ollama!' },
-    ];
+    const messages: Message[] = [{ role: 'user', content: 'Hello, Ollama!' }];
     const result = formatter.format(messages);
     // We expect the 'messages' property in the result to be the same array instance,
     // or at least deeply equal. Given the current implementation, it's the same instance.
@@ -41,9 +39,7 @@ describe('OllamaFormatter', () => {
 
   it('should return an object that only contains the messages key by default', () => {
     const formatter = new OllamaFormatter();
-    const messages: Message[] = [
-      { role: 'user', content: 'Test message' },
-    ];
+    const messages: Message[] = [{ role: 'user', content: 'Test message' }];
     const result = formatter.format(messages);
     expect(Object.keys(result)).toEqual(['messages']);
     expect(result.model).toBeUndefined();
