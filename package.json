@@ -35,7 +35,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint \"src/**/*.ts\" --quiet --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.{ts,js}\" \"*.{js,json,md}\" --ignore-path .prettierignore",

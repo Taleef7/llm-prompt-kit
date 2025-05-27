@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json", // Inherit all settings from your main tsconfig.json
+  "compilerOptions": {
+    // You can override specific compiler options for the build if needed,
+    // but often inheriting is enough.
+    // For example, if you wanted to ensure no .map files for the build:
+    // "sourceMap": false,
+    // "declarationMap": false
+    // For now, let's keep it simple and just inherit.
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "src/**/*.test.ts",     // <--- Key change: Exclude test files from this build
+    "vitest.config.ts",     // Exclude Vitest config file
+    "eslint.config.mjs",    // Exclude ESLint config file
+    "**/__mocks__/*"        // If you ever add Vitest mocks in __mocks__ folders
+  ]
+  // Note: The "include" array from the extended tsconfig.json (`src/**/*`)
+  // will still be active, but "exclude" takes precedence for these specific patterns.
+}
